@@ -1,18 +1,24 @@
 import json
 import os
 
+"""
+This function returns a list of the names of the students who registered for
+the course with the name "course_name".
+
+:param input_json_path: Path of the students database json file.
+:param course_name: The name of the course.
+:return: List of the names of the students.
+"""
 
 
 def names_of_registered_students(input_json_path, course_name):
-    """
-    This function returns a list of the names of the students who registered for
-    the course with the name "course_name".
-
-    :param input_json_path: Path of the students database json file.
-    :param course_name: The name of the course.
-    :return: List of the names of the students.
-    """
-    pass
+    students_list = []
+    with open(input_json_path) as data_file:  #os.poen?
+        data = json.load(data_file)
+        for id_key in data:
+            if data[id_key]['registered_courses'][0] == course_name:
+                students_list.append(data[id_key]['student_name'])
+    return students_list
 
 
 def enrollment_numbers(input_json_path, output_file_path):
@@ -26,7 +32,6 @@ def enrollment_numbers(input_json_path, output_file_path):
     pass
 
 
-
 def courses_for_lecturers(json_directory_path, output_json_path):
     """
     This function writes the courses given by each lecturer in json format.
@@ -35,6 +40,3 @@ def courses_for_lecturers(json_directory_path, output_json_path):
     :param output_json_path: Path of the output json file.
     """
     pass
-
-
-
