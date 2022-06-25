@@ -15,9 +15,10 @@ def names_of_registered_students(input_json_path, course_name):
     students_list = []
     with open(input_json_path) as data_file:  #os.poen?
         data = json.load(data_file)
-        for id_key in data:
-            if data[id_key]['registered_courses'][0] == course_name:
-                students_list.append(data[id_key]['student_name'])
+        return [data[id_key]["student_name"] for id_key in data if course_name in data[id_key]["registered_courses"]]
+        #for id_key in data:
+            #if (course_name in data[id_key]['registered_courses']):
+                #students.append(data[id_key]["student_name"]);
     return students_list
 
 
@@ -40,3 +41,9 @@ def courses_for_lecturers(json_directory_path, output_json_path):
     :param output_json_path: Path of the output json file.
     """
     pass
+
+
+students = []
+input_json_path = "c:\Compiles C AVIA\hw5\students_database.json";
+course_name = "Introduction to Algorithms";
+print(names_of_registered_students(input_json_path,course_name));
