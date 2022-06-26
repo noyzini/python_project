@@ -54,7 +54,25 @@ def courses_for_lecturers(json_directory_path, output_json_path):
     :param json_directory_path: Path of the semsters_data files.
     :param output_json_path: Path of the output json file.
     """
-    pass
+    lecturers_dict = {}
+    for file in os.listdir(json_directory_path):
+        if file.endswith(".json"):
+            with open(os.path.join(json_directory_path, file), 'r') as data_file:  # os.poen?
+                data = json.load(data_file)
+                for course_id in data:
+                    for lecturer in data[course_id]["lecturers"]:
+                        course_name = data[course_id]["course_name"]
+                        if lecturer not in lecturers_dict.keys():
+                            lecturers_dict[lecturer] = [course_name]
+                        else:
+                            if course_name not in lecturers_dict[lecturer]:
+                                lecturers_dict[lecturer].append(course_name)
+
+    #print(lecturers_dict)
+    with open(output_json_path, 'w') as writeTo:
+        json.dump(lecturers_dict, writeTo, indent=4)
+
+    return lecturers_dict
 
 
 students = []
