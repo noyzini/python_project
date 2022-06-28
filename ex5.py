@@ -69,3 +69,4 @@ def courses_for_lecturers(json_directory_path, output_json_path):
         json.dump(lecturers_dict, writeTo, indent=4)
 
     return lecturers_dict
+
