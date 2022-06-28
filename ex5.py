@@ -13,12 +13,11 @@ def names_of_registered_students(input_json_path, course_name):
     :return: List of the names of the students.
     """
     students_list = []
-    with open(input_json_path) as data_file:  #os.poen?
+    with open(input_json_path) as data_file:
         data = json.load(data_file)
-        #return [data[id_key]["student_name"] for id_key in data if course_name in data[id_key]["registered_courses"]]
         for id_key in data:
             if course_name in data[id_key]['registered_courses']:
-                students_list.append(data[id_key]["student_name"]);
+                students_list.append(data[id_key]["student_name"])
     return students_list
 
 
@@ -31,7 +30,7 @@ def enrollment_numbers(input_json_path, output_file_path):
     :param output_file_path: Path of the output text file.
     """
     courses_dict = {}
-    with open(input_json_path) as data_file:  # os.poen?
+    with open(input_json_path) as data_file:
         data = json.load(data_file)
         for id_key in data:
             for student_curses in data[id_key]['registered_courses']:
@@ -39,9 +38,10 @@ def enrollment_numbers(input_json_path, output_file_path):
                     courses_dict[student_curses] = 1
                 else:
                     courses_dict[student_curses] = courses_dict[student_curses] + 1
+
     with open(output_file_path, 'w') as outfile:
-        for key in sorted(courses_dict):
-            outfile.write('"'+key+'" '+str(courses_dict[key])+'\n')
+        for courseName, numOfStudents in sorted(courses_dict.items()):
+            outfile.write('"'+courseName+'" '+str(numOfStudents)+'\n')
 
 
 def courses_for_lecturers(json_directory_path, output_json_path):
@@ -54,7 +54,7 @@ def courses_for_lecturers(json_directory_path, output_json_path):
     lecturers_dict = {}
     for file in os.listdir(json_directory_path):
         if file.endswith(".json"):
-            with open(os.path.join(json_directory_path, file), 'r') as data_file:  # os.poen?
+            with open(os.path.join(json_directory_path, file), 'r') as data_file:
                 data = json.load(data_file)
                 for course_id in data:
                     for lecturer in data[course_id]["lecturers"]:
