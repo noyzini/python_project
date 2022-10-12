@@ -1,8 +1,6 @@
 import json
 import os
 
-
-
 def names_of_registered_students(input_json_path, course_name):
     """
     This function returns a list of the names of the students who registered for
